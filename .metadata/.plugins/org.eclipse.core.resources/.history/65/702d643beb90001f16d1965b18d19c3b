@@ -1,0 +1,35 @@
+package domain;
+
+public class CommentVO {
+	private int cno;
+	private int bno;
+	private String content;
+	private String writer;
+	private String regdate;
+	
+	
+	public CommentVO() {}
+
+
+	// 등록
+	public CommentVO(int bno, String content, String writer) {
+		this.bno = bno;
+		this.content = content;
+		this.writer = writer;
+	}
+	
+	
+	
+	
+	
+	// 리스트
+	
+	// 수정
+	
+	// 삭제
+
+	
+	
+	
+	
+}

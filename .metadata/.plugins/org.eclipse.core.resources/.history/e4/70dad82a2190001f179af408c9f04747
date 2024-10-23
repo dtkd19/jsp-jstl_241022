@@ -1,0 +1,45 @@
+package domain;
+
+public class BoardVO {
+	private int bno;
+	private String tile;
+	private String writer;
+	private String content;
+	private String regdate;
+	private String moddate;
+	
+	public BoardVO() {}
+
+	// insert : title, writer,content
+	public BoardVO(String tile, String writer, String content) {
+		this.tile = tile;
+		this.writer = writer;
+		this.content = content;
+	}
+
+	// list : bno, title, writer, regdate
+	public BoardVO(int bno, String tile, String writer, String regdate) {
+		this.bno = bno;
+		this.tile = tile;
+		this.writer = writer;
+		this.regdate = regdate;
+	}
+
+	// update : bno, title, content
+	public BoardVO(int bno, String tile, String content) {
+		this.bno = bno;
+		this.tile = tile;
+		this.content = content;
+	}
+
+	// detail : 전부
+	public BoardVO(int bno, String tile, String writer, String content, String regdate, String moddate) {
+		this.bno = bno;
+		this.tile = tile;
+		this.writer = writer;
+		this.content = content;
+		this.regdate = regdate;
+		this.moddate = moddate;
+	}
+	
+}

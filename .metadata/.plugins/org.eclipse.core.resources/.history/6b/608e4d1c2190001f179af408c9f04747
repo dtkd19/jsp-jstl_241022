@@ -1,0 +1,29 @@
+package domain;
+
+public class BoardVO {
+	private int bno;
+	private String tile;
+	private String writer;
+	private String content;
+	private String regdate;
+	private String moddate;
+	
+	public BoardVO() {}
+	
+	// insert : title, writer,content
+	
+	
+	
+	// list : bno, title, writer, regdate
+	
+	
+	
+	// update : bno, title, content
+	
+	
+	
+	// detail : 전부
+	
+	
+	
+}

@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Board Detail Page</h1>
+	${bvo }
+
+	
+	<table>
+	<thead>
+	<tr>
+	<th>no.</th>
+	<th>작성자</th>
+	<th>내용</th>
+	<th>작성일</th>
+	<th>수정일</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>${bvo.bno }</td>
+	<td>${bvo.writer }</td>
+	<td>${bvo.content }</td>
+	<td>${bvo.regdate }</td>
+	<td>${bvo.moddate }</td>
+	</tr>
+	</tbody>
+	</table>
+	<button type="submit">수정</button>
+	<button type="submit">삭제</button>
+	
+	
+</body>
+</html>
