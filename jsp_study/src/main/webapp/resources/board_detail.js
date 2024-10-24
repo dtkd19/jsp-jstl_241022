@@ -37,32 +37,32 @@ document.getElementById('cmtAddBtn').addEventListener('click', () => {
 
 
 
-function printList(bnoVal){
+function printList(bnoVal) {
 	getCommentListFromServer(bnoVal).then(result => {
-			console.log(result);
-			if(result.length > 0){				
+		console.log(result);
+		if (result.length > 0) {
 			printCommentList(result);
-			} else{
-				let div = document.getElementById('commentLine');
-				div.innerHTML = `<div>comment가 없습니다.</div>`;
-			}
-		});
+		} else {
+			let div = document.getElementById('commentLine');
+			div.innerHTML = `<div>comment가 없습니다.</div>`;
+		}
+	});
 }
 
 
 
 
 
-function printCommentList(result){
+function printCommentList(result) {
 	let div = document.getElementById('commentLine');
-	div.innerText=''; // 기존에 값이 있다면... 구조 지우기
-	for(let i =0; i < result.length; i++){
-		let html = `<div>`;	
+	div.innerText = ''; // 기존에 값이 있다면... 구조 지우기
+	for (let i = 0; i < result.length; i++) {
+		let html = `<div>`;
 		html += `<div>${result[i].cno}, ${result[i].bno}, ${result[i].writer}, ${result[i].regdate}</div>`;
-		html += `<div>`;	
+		html += `<div>`;
 		html += `<button type="button" data-cno="${result[i].cno}" class="cmtModBtn">수정</button>`;
 		html += `<button type="button" data-cno="${result[i].cno}" class="cmtDelBtn">삭제</button><br>`;
-		html += `<input type="text" class="cmtText" id="${result[i].cno}" value="${result[i].content}">` ;
+		html += `<input type="text" class="cmtText" id="${result[i].cno}" value="${result[i].content}">`;
 		html += `</div></div><hr>`;
 		div.innerHTML += html;
 	}
@@ -96,48 +96,55 @@ async function postCommentToserver(cmtData) {
 };
 
 // list 가져오기 : 내 게시글에 달린 댓글만 가져오기 => get (생략가능)
-async function getCommentListFromServer(bno){
-	try{
-		const resp = await fetch("/cmt/list?bno="+bno);
+async function getCommentListFromServer(bno) {
+	try {
+		const resp = await fetch("/cmt/list?bno=" + bno);
 		const result = await resp.json(); // 댓글 리스트 [{...},{...}]
-		return result; 
-		
-	} catch (error){
+		return result;
+
+	} catch (error) {
 		console.log(error);
 	}
 };
 
 
-async function updateCommentToServer(cmtData){
+async function updateCommentToServer(cmtData) {
 	// 수정 : cno, content 객체를 보내서 isOk return => post
-	try{
+	try {
 		console.log(cmtData);
 		const url = "/cmt/modify";
 		const config = {
-			method : 'post',
-			headers : {
+			method: 'post',
+			headers: {
 				'Content-Type': 'application/json; charset=utf-8'
 			},
 			body: JSON.stringify(cmtData)
 		}
-		const resp = await fetch(url,config);
+		const resp = await fetch(url, config);
 		const result = await resp.text();
 		return result;
-				
-	} catch(error){
+
+	} catch (error) {
 		console.log(error);
 	}
-}
+};
 
+async function deleteCommentToServer(cno) {
+	try {
+		const resp = await fetch("/cmt/delete?cno=" + cno);
+		const result = await resp.text();
+		return result;
 
-
-
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 document.addEventListener('click', (e) => {
 	console.log(e.target);
 	console.log(e.target.dataset.cno);
 	// 수정 
-	if(e.target.classList.contains('cmtModBtn')){
+	if (e.target.classList.contains('cmtModBtn')) {
 		// 수정에 대한 처리
 		let cnoVal = e.target.dataset.cno;
 		// cno 값을 id로 사용할 경우 
@@ -149,28 +156,48 @@ document.addEventListener('click', (e) => {
 		//console.log(div); // 내 댓글 객체 찾기
 		//let cmtText2 = div.querySelector('.cmtText').value;
 		//console.log(cmtText2);
-		
-		
+
+
 		let cmtData = {
-			cno : cnoVal,
-			content : cmtText
+			cno: cnoVal,
+			content: cmtText
 		}
-		
+
 		updateCommentToServer(cmtData).then(result => {
 			console.log(result);
+			if (result == '1') {
+				alert("댓글 수정 성공!!");
+			} else {
+				alert("댓글 수정 실패..");
+			}
 		});
-		
-		
-		
-		
-			
+
+		// 수정 후 수정된 내용 출력
+		printList(bnoVal);
+	} else {
+		// 삭제
+		if (e.target.classList.contains('cmtDelBtn')) {
+			// 삭제에 대한 처리
+			let cnoVal = e.target.dataset.cno;
+			console.log(cnoVal);
+			// 삭제 비동기 함수 호출 result 받아서 alert 띄우기. 
+			// 삭제 후 출력 메서드 호출
+
+			deleteCommentToServer(cnoVal).then(result => {
+				console.log(result);
+				if (result == '1') {
+					alert("댓글 삭제 성공!!");
+				} else {
+					alert("댓글 삭제 실패..");
+				}
+			})
+
+			// 삭제 후 출력
+			printList(bnoVal);
+
+		}
 	}
-	// 삭제
-	if(e.target.classList.contains('cmtDelBtn')){
-		// 삭제에 대한 처리
-		let cnoVal = e.target.dataset.cno;
-	}
-	
+
 })
 
 

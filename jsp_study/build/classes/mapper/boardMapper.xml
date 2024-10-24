@@ -8,8 +8,9 @@
   <!-- parameterType = 매개변수의 객체타입 (생략가능), resultType = 결과로 나가는 객체 -->  
   <!-- 실제 SQL 구문 사용 -->
   <insert id="add" parameterType="domain.BoardVO">
-  	insert into board(title,writer,content)
-  	values(#{title},#{writer},#{content})
+  <!-- imageFile 추가 -->
+  	insert into board(title,writer,content,imageFile)
+  	values(#{title},#{writer},#{content},#{imageFile})
   </insert>
   <select id="list" resultType="domain.BoardVO">
 	select * from board order by bno desc  
@@ -23,9 +24,18 @@
   	update board set 
   	title = #{title}, 
   	content=#{content}, 
-  	moddate = now()
+  	moddate = now(),
+  	imageFile = #{imageFile}
   	where bno = #{bno} 
   </update>
+  
+  <update id="readCount" parameterType="int">
+  	update board set
+  	readCount = readCount + 1
+    where bno = #{bno}
+  </update>
+  
+  
   <delete id="delete" parameterType="int">
   	delete from board where bno = #{bno}
   </delete>

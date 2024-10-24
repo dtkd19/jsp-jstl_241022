@@ -32,6 +32,14 @@
 			<td>${bvo.moddate }</td>
 		</tr>
 		<tr>
+			<th>readCount</th>
+			<td>${bvo.readCount }</td>
+		</tr>
+		<tr>
+			<th>image</th>
+			<td><img alt="" src="/_fileUpload/${bvo.imageFile }"></td>
+		</tr>
+		<tr>
 			<th>content</th>
 			<td>${bvo.content }</td>
 			<%-- <td><textarea rows="10" cols="50">${bvo.content }</textarea>  </td> --%>
@@ -39,6 +47,9 @@
 	</table>
 	<a href="/brd/modify?bno=${bvo.bno }"><button type="button">update</button></a>
 	<a href="/brd/delete?bno=${bvo.bno }"><button type="button">delete</button></a>
+	<a href="/brd/list">
+		<button type="button">list</button>
+	</a>
 
 	<hr>
 

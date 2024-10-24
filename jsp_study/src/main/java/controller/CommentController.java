@@ -123,7 +123,56 @@ public class CommentController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-
+		case "modify" :
+			try {
+				StringBuffer sb = new StringBuffer();
+				String line ="";
+				BufferedReader br = request.getReader();
+				
+				while( (line = br.readLine()) != null ) {
+					sb.append(line);
+				}
+				log.info(">>>> modify sb > {} ", sb.toString());
+				
+				JSONParser parser = new JSONParser();
+				JSONObject jsonObj = (JSONObject)parser.parse(sb.toString());
+				log.info(">>> modify jsonObj >> {}", jsonObj);
+				
+				int cno = Integer.parseInt(jsonObj.get("cno").toString());
+				String content = jsonObj.get("content").toString();
+				
+				CommentVO cvo = new CommentVO(cno, content);
+				
+				int isOk = csv.modify(cvo);
+				log.info(" >>>> modify > {}", (isOk > 0 ? "성공" : "실패"));
+				
+				PrintWriter out = response.getWriter();
+				out.print(isOk);
+				
+			} catch (Exception e) {
+				log.info("cmt modify list error");
+				e.printStackTrace();
+			}
+						
+			break;
+		case "delete" :
+			try {
+				
+				int cno = Integer.parseInt(request.getParameter("cno"));
+				int isOk = csv.delete(cno);
+				log.info(" >>>> delete > {}", (isOk > 0 ? "성공" : "실패"));
+				
+				PrintWriter out = response.getWriter();
+				out.print(isOk);
+				
+				
+			} catch (Exception e) {
+				log.info("cmt delete list error");
+				e.printStackTrace();
+			}
+			
+			break;
+			
 		}
 
 	}

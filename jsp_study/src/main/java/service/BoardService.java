@@ -16,4 +16,6 @@ public interface BoardService {
 
 	int delete(int bno);
 
+	int readCountPlus(int bno);
+
 }

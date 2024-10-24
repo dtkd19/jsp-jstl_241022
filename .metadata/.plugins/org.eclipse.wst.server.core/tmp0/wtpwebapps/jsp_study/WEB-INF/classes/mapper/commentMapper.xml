@@ -14,4 +14,12 @@
   	order by cno desc
   </select>
   
+  <update id="modify">
+  	update comment set content = #{content}, regdate=now() where cno = #{cno}
+  </update>
+  
+  <delete id="delete">
+  	delete from comment where cno = #{cno}
+  </delete>
+  
   </mapper>

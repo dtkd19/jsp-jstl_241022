@@ -9,8 +9,8 @@
 <body>
 	<h1>Board Modify Page</h1>
 
-	<form action="/brd/update" method="post">
-	<input type="hidden" name="bno" value="${bvo.bno }">
+	<form action="/brd/update" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="bno" value="${bvo.bno }">
 		<table>
 			<tr>
 				<th>no.</th>
@@ -18,7 +18,8 @@
 			</tr>
 			<tr>
 				<th>title</th>
-				<td> <input type="text" name="title" value="${bvo.title }"> </td>
+				<td><input type="text" name="title" value="${bvo.title }">
+				</td>
 			</tr>
 			<tr>
 				<th>writer</th>
@@ -33,10 +34,29 @@
 				<td>${bvo.moddate }</td>
 			</tr>
 			<tr>
+				<th>readCount</th>
+				<td>${bvo.readCount }</td>
+			</tr>
+			<tr>
+				<th>image</th>
+				<td><img alt="" src="/_fileUpload/${bvo.imageFile }"></td>
+			</tr>
+			<tr>
 				<th>content</th>
-				<td> <textarea rows="10" cols="50" name="content">${bvo.content }</textarea> </td>
+				<td><textarea rows="10" cols="50" name="content">${bvo.content }</textarea>
+				</td>
 				<%-- <td><textarea rows="10" cols="50">${bvo.content }</textarea>  </td> --%>
 			</tr>
+			<!-- 파일변경 -->
+			<tr>
+				<th>image</th>
+				
+				<td>
+				<input type="hidden" name="imageFile" value="${bvo.imageFile }">
+				<input type="file" name="newFile" accept="image/jpeg, image/gif, image/png">
+				</td>
+			</tr>
+			
 		</table>
 		<!-- 수정버튼을 누르면 내가 수정한 내용을 가지고(form) 컨트롤러로 이동 -->
 		<button type="submit">modify commit</button>
