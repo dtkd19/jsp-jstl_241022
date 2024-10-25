@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>User info modify</h3>
+
+	<form action="/mem/info" method="post">
+		id:<br> <input type="text" name="id" placeholder="id..." value = ${mvo.id } readonly="readonly"><br>
+		pwd:<br> <input type="password" name="pwd" placeholder="pwd..." value = ${mvo.pwd }><br>
+		email:<br> <input type="text" name="email" placeholder="email..." value = ${mvo.email }><br>
+		phone:<br> <input type="text" name="phone" placeholder="phone..." value = ${mvo.phone }>
+		<button type="submit" data-id="${mvo.id }" class="cmtModBtn">modify</button>
+	</form>
+
+
+	<script type="text/javascript" src="/resources/member_detail.js"></script>
+
+
+	
+
+
+</body>
+</html>

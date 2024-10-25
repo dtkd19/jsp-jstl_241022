@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="MemberMapper">
+  
+  <insert id="register">
+  	insert into member(id,pwd,email,phone,imageFile) values(#{id},#{pwd},#{email},#{phone},#{imageFile})
+  </insert>
+  
+  <select id="login" resultType="domain.MemberVO">
+  	select * from member where id = #{id} and pwd = #{pwd}
+  </select>
+  
+  <update id="last">
+  	update member set lastlogin = now() 
+  	where id = #{id}
+  </update>
+  
+  <select id="user" resultType="domain.MemberVO">
+  	select * from member order by regdate desc
+  </select>
+  
+  <update id="info">
+  	update member set
+  	pwd = #{pwd},
+  	email = #{email},
+  	phone = #{phone},
+  	imageFile = #{imageFile}
+  	where id = #{id}
+  </update>
+  
+  <delete id="delete">
+  	delete from member where id = #{id}
+  </delete>
+  
+ <select id="board" resultType="domain.BoardVO">
+ 	select * from board where writer = #{id}
+ </select>
+ 
+ <select id="detail" resultType="domain.MemberVO">
+ 	select * from member where id = #{id}
+ </select>
+ 
+ 
+<!--  <update id="date">
+ 	update member set
+ 	regdate = now();
+ 	lastlogin = now();
+ 	where id = #{id}
+ </update> -->
+ 
+ 
+  
+  </mapper>
